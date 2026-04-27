@@ -31,7 +31,7 @@ viewport events, and responsive embedding.
 
 | Name | Required | Default | Format & meaning |
 |---|---|---|---|
-| `locations` | no | `"New York City, USA;Berlin, Deutschland;Singapur, Singapur"` | Semicolon-separated list of free-form queries: `"Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA"`. Entries are trimmed and de-duplicated. When omitted or empty, the app falls back to that three-city default so the tile is immediately useful with zero configuration. Note: Open-Meteo's geocoder expects country names in their native language (e.g. `Deutschland`, not `Germany`; `USA` or `United States`). |
+| `locations` | no | `"New York City;Berlin;Singapur"` | Semicolon-separated list of free-form queries: `"Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA"`. Entries are trimmed and de-duplicated. When omitted or empty, the app falls back to that three-city default so the tile is immediately useful with zero configuration. Note: Open-Meteo's geocoder expects country names in their native language (e.g. `Deutschland`, not `Germany`; `USA` or `United States`). |
 | `units` | no | `metric` | `metric` → °C / km/h / mm / hPa / km. `imperial` → °F / mph / in / inHg / miles. |
 | `refreshIntervalMinutes` | no | `0` | Integer minutes between automatic refreshes. `0` disables background refresh. Maximum `1440`. |
 

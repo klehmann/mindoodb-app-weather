@@ -9,7 +9,7 @@
  *
  * | Name                    | Req | Default              | Format                                             |
  * |-------------------------|-----|----------------------|----------------------------------------------------|
- * | `locations`             | no  | `"New York City, USA;Berlin, Deutschland;Singapur, Singapur"` | "Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA" |
+ * | `locations`             | no  | `"New York City;Berlin;Singapur"` | "Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA" |
  * | `units`                 | no  | `metric`             | `metric` or `imperial`                             |
  * | `refreshIntervalMinutes`| no  | `0`                  | non-negative integer; `0` disables auto-refresh    |
  *
@@ -41,9 +41,9 @@ export interface ParsedLaunchParams {
  * without any configuration.
  */
 export const DEFAULT_LOCATION_QUERIES = [
-  "New York City, USA",
-  "Berlin, Deutschland",
-  "Singapur, Singapur",
+  "New York City",
+  "Berlin",
+  "Singapur",
 ] as const;
 
 export const DEFAULT_LAUNCH_PARAMS: ParsedLaunchParams = {
