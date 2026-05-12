@@ -38,9 +38,7 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import type { Swiper as SwiperInstance } from "swiper";
 
 import type { LocationTile } from "@/app/useWeatherApp";
-// @ts-expect-error - Swiper CSS side-effect imports have no type declarations
 import "swiper/css";
-// @ts-expect-error - Swiper CSS side-effect imports have no type declarations
 import "swiper/css/pagination";
 
 const props = defineProps<{
