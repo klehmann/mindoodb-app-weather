@@ -56,8 +56,8 @@ Unknown keys are ignored.
 ### Local development against the published SDK
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 The dev server listens on <http://localhost:4205>. You can preview
@@ -75,8 +75,8 @@ the `:local` variants to alias the sources instead of the published
 package:
 
 ```bash
-npm run dev:local      # aliases ../mindoodb-app-sdk/src
-npm run build:local    # ditto, for a production build
+pnpm dev:local      # aliases ../mindoodb-app-sdk/src
+pnpm build:local    # ditto, for a production build
 ```
 
 ### Cloudflare Pages deployment
@@ -85,9 +85,9 @@ Deploying the bundle to [Cloudflare Pages](https://pages.cloudflare.com)
 mirrors the workflow used by `mindoodb-app-example`:
 
 ```bash
-npm run build
-npm run deploy         # builds + wrangler deploy
-npm run preview        # local Pages preview of the built assets
+pnpm build
+pnpm deploy         # builds + wrangler deploy
+pnpm preview        # local Pages preview of the built assets
 ```
 
 The [`wrangler.jsonc`](./wrangler.jsonc) config treats `./dist` as
@@ -153,8 +153,8 @@ src/
 ## Running the tests
 
 ```bash
-npm test           # runs Vitest once
-npm run test:watch # watch mode
+pnpm test       # runs Vitest once
+pnpm test:watch # watch mode
 ```
 
 Tests cover launch-parameter parsing, WMO → visual-state mapping,
