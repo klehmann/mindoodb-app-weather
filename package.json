@@ -21,8 +21,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "mindoodb-app-sdk": "0.0.20",
-    "mindoodb-view-language": "0.0.13",
+    "mindoodb-app-sdk": "0.0.26",
+    "mindoodb-view-language": "0.0.14",
     "swiper": "^12.1.2",
     "vue": "^3.5.31",
     "vue-i18n": "^11.1.0"
