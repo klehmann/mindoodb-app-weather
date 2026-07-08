@@ -160,3 +160,8 @@ pnpm test:watch # watch mode
 Tests cover launch-parameter parsing, WMO → visual-state mapping,
 UV / AQI band classification, wind direction rounding, pressure
 trend detection, and the localStorage cache layer.
+
+## License
+
+Licensed under the [Apache License, Version 2.0](./LICENSE). Copyright 2026
+Mindoo GmbH.
