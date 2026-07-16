@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
 import wasm from "vite-plugin-wasm";
+import { VitePWA } from "vite-plugin-pwa";
 
 /**
  * Build the `resolve.alias` map.
@@ -28,8 +29,30 @@ function createResolveAliases(): Record<string, string> {
   return aliases;
 }
 
+const isVitest = process.env.VITEST === "true";
+
 export default defineConfig({
-  plugins: [wasm(), vue()],
+  plugins: [
+    wasm(),
+    vue(),
+    ...(
+      isVitest
+        ? []
+        : [
+            VitePWA({
+              strategies: "injectManifest",
+              srcDir: "src",
+              filename: "sw.ts",
+              injectRegister: false,
+              manifest: false,
+              injectManifest: {
+                globPatterns: ["**/*.{css,html,ico,js,png,svg,ttf,wasm,webmanifest,woff,woff2}"],
+                maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
+              },
+            }),
+          ]
+    ),
+  ],
   resolve: {
     alias: createResolveAliases(),
   },
