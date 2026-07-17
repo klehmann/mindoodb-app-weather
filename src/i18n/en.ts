@@ -12,6 +12,13 @@ export default {
       "Set the app’s “locations” launch parameter in Haven, e.g. “Berlin, Germany;Karlsruhe, Germany”.",
     reconnect: "Reconnect",
     offline: "Showing cached data",
+    update: {
+      title: "New version available",
+      body: "Reload Weather to switch to the latest version and refresh offline assets.",
+      reload: "Reload now",
+      reloading: "Reloading...",
+      close: "Close",
+    },
   },
   loading: "Loading weather",
   error: {

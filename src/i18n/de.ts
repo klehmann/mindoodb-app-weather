@@ -12,6 +12,13 @@ export default {
       "Bitte den App-Parameter „locations“ in Haven setzen, z. B. „Berlin, Deutschland;Karlsruhe, Deutschland“.",
     reconnect: "Neu verbinden",
     offline: "Zwischengespeicherte Daten",
+    update: {
+      title: "Neue Version verfügbar",
+      body: "Lade Wetter neu, um die aktuelle Version und Offline-Dateien zu verwenden.",
+      reload: "Jetzt neu laden",
+      reloading: "Wird neu geladen...",
+      close: "Schließen",
+    },
   },
   loading: "Wetter wird geladen",
   error: {
