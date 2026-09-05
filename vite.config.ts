@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitest/config";
 import vue from "@vitejs/plugin-vue";
+import { havenBundle } from "mindoodb-app-sdk/vite";
 import wasm from "vite-plugin-wasm";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -22,6 +23,7 @@ function createResolveAliases(): Record<string, string> {
     aliases["mindoodb-app-sdk/testing"] = fileURLToPath(
       new URL("../mindoodb-app-sdk/src/testing/index.ts", import.meta.url),
     );
+    aliases["mindoodb-app-sdk/vite"] = fileURLToPath(new URL("../mindoodb-app-sdk/src/vite/index.ts", import.meta.url));
     aliases["mindoodb-app-sdk"] = fileURLToPath(new URL("../mindoodb-app-sdk/src/index.ts", import.meta.url));
     aliases["mindoodb-view-language"] = fileURLToPath(new URL("../mindoodb-view-language/src/index.ts", import.meta.url));
   }
@@ -32,9 +34,13 @@ function createResolveAliases(): Record<string, string> {
 const isVitest = process.env.VITEST === "true";
 
 export default defineConfig({
+  // Relative asset URLs so the same build works from the app origin and from
+  // Haven's `/__mindoodb_hosted_apps__/<bundleId>/` prefix.
+  base: "./",
   plugins: [
     wasm(),
     vue(),
+    havenBundle(),
     ...(
       isVitest
         ? []
