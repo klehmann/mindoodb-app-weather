@@ -1,5 +1,5 @@
 # MindooDB Weather — Haven sample app
-
+ 
 A responsive, iOS-Weather-style weather tile for [MindooDB
 Haven](https://mindoodb.com). It renders a beautiful forecast for one
 or more locations configured through a Haven **app parameter**, and
