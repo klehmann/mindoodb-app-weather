@@ -29,15 +29,18 @@ const props = defineProps<{
 
 /**
  * Build the URL for a given condition key. We prefer pre-generated
- * photographic backgrounds under `/backgrounds/`; if no such file is
+ * photographic backgrounds under `backgrounds/`; if no such file is
  * present (e.g. in a fresh checkout before the images have been
  * generated) the browser will just render the fallback gradient.
+ *
+ * The path is relative to the Vite base so it also resolves when Haven
+ * serves the bundle under `/__mindoodb_hosted_apps__/<bundleId>/`.
  */
 function resolveUrl(condition: VisualCondition | null): string | null {
   if (!condition) {
     return null;
   }
-  return `/backgrounds/${condition.key}.jpg`;
+  return `${import.meta.env.BASE_URL}backgrounds/${condition.key}.jpg`;
 }
 
 /**

@@ -21,7 +21,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "mindoodb-app-sdk": "0.0.51",
+    "mindoodb-app-sdk": "0.0.53",
     "mindoodb-view-language": "0.0.14",
     "swiper": "^12.1.2",
     "vue": "^3.5.31",
@@ -33,6 +33,7 @@
     "workbox-strategies": "^7.4.1"
   },
   "devDependencies": {
+    "@automerge/automerge": "^3.4.1",
     "@types/node": "25.5.0",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/test-utils": "^2.4.6",

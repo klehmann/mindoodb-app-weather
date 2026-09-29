@@ -1,0 +1,79 @@
+{
+  "format": "mindoodb.haven.app",
+  "formatVersion": 1,
+  "appId": "mindoodb-app-weather",
+  "label": "Mindoo Weather",
+  "description": "Responsive weather tile with forecasts for multiple configurable cities.",
+  "version": "1.0.0",
+  "runtime": "iframe",
+  "hosting": "external",
+  "launchParameters": {
+    "locations": "New York City;Berlin;Singapur",
+    "units": "metric",
+    "refreshIntervalMinutes": "0"
+  },
+  "listing": {
+    "summary": {
+      "en": "Responsive weather tile with forecasts for multiple configurable cities.",
+      "de": "Responsive Wetterkachel mit Vorhersagen für mehrere konfigurierbare Städte.",
+      "es": "Widget meteorológico responsivo con pronósticos para varias ciudades configurables.",
+      "fr": "Tuile météo responsive avec prévisions pour plusieurs villes configurables.",
+      "it": "Riquadro meteo responsivo con previsioni per più città configurabili.",
+      "nb": "Responsiv værflis med prognoser for flere konfigurerbare byer.",
+      "nl": "Responsieve weertegel met voorspellingen voor meerdere configureerbare steden.",
+      "pl": "Responsywny kafelek pogodowy z prognozami dla wielu konfigurowalnych miast."
+    },
+    "description": {
+      "de": "Mindoo Weather ist eine responsive Haven-Wetterkachel, die Vorhersagen für mehrere konfigurierte Städte über die kostenlosen Open-Meteo-APIs anzeigt.\n\n• Standardmäßig zwischen Vorhersagekarten für New York City, Berlin und Singapur wischen\n\n• Orte, Einheiten und Aktualisierungsintervall über Haven-Startparameter konfigurieren\n\n• Quellcode: github.com/klehmann/mindoodb-app-weather",
+      "en": "Mindoo Weather is a responsive Haven weather tile that shows forecasts for multiple configured cities using the free Open-Meteo APIs.\n\n• Swipe between forecast cards for New York City, Berlin, and Singapur by default\n\n• Configure locations, units, and refresh interval with Haven launch parameters\n\n• Source code: github.com/klehmann/mindoodb-app-weather",
+      "es": "Mindoo Weather es un widget meteorológico responsivo para Haven que muestra pronósticos para varias ciudades configuradas usando las API gratuitas de Open-Meteo.\n\n• Desliza entre tarjetas de pronóstico para Nueva York, Berlín y Singapur de forma predeterminada\n\n• Configura ubicaciones, unidades e intervalo de actualización con los parámetros de inicio de Haven\n\n• Código fuente: github.com/klehmann/mindoodb-app-weather",
+      "fr": "Mindoo Weather est une tuile météo responsive pour Haven qui affiche les prévisions de plusieurs villes configurées grâce aux API gratuites d'Open-Meteo.\n\n• Faites défiler par défaut les cartes de prévisions pour New York, Berlin et Singapour\n\n• Configurez les lieux, les unités et l'intervalle d'actualisation via les paramètres de lancement de Haven\n\n• Code source : github.com/klehmann/mindoodb-app-weather",
+      "it": "Mindoo Weather è un riquadro meteo responsivo per Haven che mostra le previsioni per più città configurate usando le API gratuite di Open-Meteo.\n\n• Scorri tra le schede delle previsioni per New York, Berlino e Singapore come impostazione predefinita\n\n• Configura località, unità di misura e intervallo di aggiornamento con i parametri di avvio di Haven\n\n• Codice sorgente: github.com/klehmann/mindoodb-app-weather",
+      "nb": "Mindoo Weather er en responsiv værflis for Haven som viser prognoser for flere konfigurerte byer ved hjelp av de gratis Open-Meteo-API-ene.\n\n• Sveip mellom prognosekort for New York, Berlin og Singapore som standard\n\n• Konfigurer steder, enheter og oppdateringsintervall med Havens oppstartsparametere\n\n• Kildekode: github.com/klehmann/mindoodb-app-weather",
+      "nl": "Mindoo Weather is een responsieve weertegel voor Haven die voorspellingen toont voor meerdere geconfigureerde steden via de gratis Open-Meteo-API's.\n\n• Veeg standaard tussen voorspellingskaarten voor New York, Berlijn en Singapore\n\n• Configureer locaties, eenheden en vernieuwingsinterval met Haven-startparameters\n\n• Broncode: github.com/klehmann/mindoodb-app-weather",
+      "pl": "Mindoo Weather to responsywny kafelek pogodowy dla Haven, który pokazuje prognozy dla wielu skonfigurowanych miast, korzystając z darmowych API Open-Meteo.\n\n• Domyślnie przesuwaj między kartami prognoz dla Nowego Jorku, Berlina i Singapuru\n\n• Konfiguruj lokalizacje, jednostki i częstotliwość odświeżania za pomocą parametrów startowych Haven\n\n• Kod źródłowy: github.com/klehmann/mindoodb-app-weather"
+    },
+    "descriptionMarkdown": {
+      "de": "**Mindoo Weather** ist eine responsive Haven-Wetterkachel, die Vorhersagen für mehrere konfigurierte Städte über die kostenlosen Open-Meteo-APIs anzeigt.\n\n- Standardmäßig zwischen Vorhersagekarten für New York City, Berlin und Singapur wischen\n- Orte, Einheiten und Aktualisierungsintervall über Haven-Startparameter konfigurieren\n- Quellcode: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "en": "**Mindoo Weather** is a responsive Haven weather tile that shows forecasts for multiple configured cities using the free Open-Meteo APIs.\n\n- Swipe between forecast cards for New York City, Berlin, and Singapur by default\n- Configure locations, units, and refresh interval with Haven launch parameters\n- Source code: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "es": "**Mindoo Weather** es un widget meteorológico responsivo para Haven que muestra pronósticos para varias ciudades configuradas usando las API gratuitas de Open-Meteo.\n\n- Desliza entre tarjetas de pronóstico para Nueva York, Berlín y Singapur de forma predeterminada\n- Configura ubicaciones, unidades e intervalo de actualización con los parámetros de inicio de Haven\n- Código fuente: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "fr": "**Mindoo Weather** est une tuile météo responsive pour Haven qui affiche les prévisions de plusieurs villes configurées grâce aux API gratuites d'Open-Meteo.\n\n- Faites défiler par défaut les cartes de prévisions pour New York, Berlin et Singapour\n- Configurez les lieux, les unités et l'intervalle d'actualisation via les paramètres de lancement de Haven\n- Code source : [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "it": "**Mindoo Weather** è un riquadro meteo responsivo per Haven che mostra le previsioni per più città configurate usando le API gratuite di Open-Meteo.\n\n- Scorri tra le schede delle previsioni per New York, Berlino e Singapore come impostazione predefinita\n- Configura località, unità di misura e intervallo di aggiornamento con i parametri di avvio di Haven\n- Codice sorgente: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "nb": "**Mindoo Weather** er en responsiv værflis for Haven som viser prognoser for flere konfigurerte byer ved hjelp av de gratis Open-Meteo-API-ene.\n\n- Sveip mellom prognosekort for New York, Berlin og Singapore som standard\n- Konfigurer steder, enheter og oppdateringsintervall med Havens oppstartsparametere\n- Kildekode: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "nl": "**Mindoo Weather** is een responsieve weertegel voor Haven die voorspellingen toont voor meerdere geconfigureerde steden via de gratis Open-Meteo-API's.\n\n- Veeg standaard tussen voorspellingskaarten voor New York, Berlijn en Singapore\n- Configureer locaties, eenheden en vernieuwingsinterval met Haven-startparameters\n- Broncode: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)",
+      "pl": "**Mindoo Weather** to responsywny kafelek pogodowy dla Haven, który pokazuje prognozy dla wielu skonfigurowanych miast, korzystając z darmowych API Open-Meteo.\n\n- Domyślnie przesuwaj między kartami prognoz dla Nowego Jorku, Berlina i Singapuru\n- Konfiguruj lokalizacje, jednostki i częstotliwość odświeżania za pomocą parametrów startowych Haven\n- Kod źródłowy: [github.com/klehmann/mindoodb-app-weather](https://github.com/klehmann/mindoodb-app-weather)"
+    },
+    "icon": "listing/icon.webp",
+    "screenshots": [
+      {
+        "file": "listing/01-iphone.webp",
+        "caption": {
+          "en": "Mindoo Weather uses the Haven viewport to render an iOS-Weather-style experience that still feels native inside a workspace tile.",
+          "de": "Mindoo Weather nutzt den Haven-Viewport für ein Erlebnis im Stil der iOS-Wetter-App, das sich auch in einer Workspace-Kachel nativ anfühlt.",
+          "es": "Mindoo Weather usa el viewport de Haven para ofrecer una experiencia al estilo de la app Tiempo de iOS que sigue sintiéndose nativa dentro de una tesela del espacio de trabajo.",
+          "fr": "Mindoo Weather utilise la zone d'affichage de Haven pour offrir une expérience façon app Météo d'iOS qui reste naturelle dans une tuile de l'espace de travail.",
+          "it": "Mindoo Weather usa il viewport di Haven per offrire un'esperienza in stile app Meteo di iOS che risulta comunque nativa dentro un riquadro dello spazio di lavoro.",
+          "nb": "Mindoo Weather bruker Haven-visningsområdet til å gi en opplevelse i stil med iOS-Vær som likevel føles hjemmehørende i en arbeidsområdeflis.",
+          "nl": "Mindoo Weather gebruikt de Haven-viewport voor een ervaring in de stijl van de iOS-Weer-app die toch native aanvoelt binnen een werkruimtetegel.",
+          "pl": "Mindoo Weather wykorzystuje viewport Haven, by zapewnić doświadczenie w stylu aplikacji Pogoda z iOS, które nadal czuje się naturalnie w kafelku obszaru roboczego."
+        }
+      },
+      {
+        "file": "listing/02-app-switcher.webp",
+        "caption": {
+          "en": "On wider screens, Mindoo Weather can stay open while the running-app switcher expands on top, so users can jump between active apps or trigger a sync of the local app database with a MindooDB server.",
+          "de": "Auf breiteren Bildschirmen kann Mindoo Weather geöffnet bleiben, während sich der App-Umschalter darüber ausklappt – für den Wechsel zwischen aktiven Apps oder eine Synchronisation der lokalen App-Datenbank mit einem MindooDB-Server.",
+          "es": "En pantallas más anchas, Mindoo Weather puede permanecer abierta mientras el selector de apps en ejecución se despliega encima, para saltar entre apps activas o iniciar una sincronización de la base de datos local de la app con un servidor MindooDB.",
+          "fr": "Sur les écrans plus larges, Mindoo Weather peut rester ouverte pendant que le sélecteur d'apps en cours s'affiche par-dessus, pour passer d'une app active à l'autre ou déclencher une synchronisation de la base de données locale de l'app avec un serveur MindooDB.",
+          "it": "Sugli schermi più ampi, Mindoo Weather può restare aperta mentre il selettore delle app in esecuzione si espande sopra, per passare tra le app attive o avviare una sincronizzazione del database locale dell'app con un server MindooDB.",
+          "nb": "På bredere skjermer kan Mindoo Weather forbli åpen mens veksleren for kjørende apper utvides over, slik at brukere kan hoppe mellom aktive apper eller starte en synkronisering av den lokale appdatabasen med en MindooDB-server.",
+          "nl": "Op bredere schermen kan Mindoo Weather open blijven terwijl de schakelaar voor actieve apps eroverheen uitklapt, zodat gebruikers tussen actieve apps kunnen springen of een synchronisatie van de lokale appdatabase met een MindooDB-server kunnen starten.",
+          "pl": "Na szerszych ekranach Mindoo Weather może pozostać otwarta, podczas gdy przełącznik uruchomionych aplikacji rozwija się nad nią, pozwalając przeskakiwać między aktywnymi aplikacjami lub uruchomić synchronizację lokalnej bazy danych aplikacji z serwerem MindooDB."
+        }
+      }
+    ],
+    "publisher": {
+      "name": "Mindoo GmbH"
+    }
+  }
+}
