@@ -12,6 +12,7 @@
     "units": "metric",
     "refreshIntervalMinutes": "0"
   },
+  "publicUrl": "https://app-weather.mindoodb.com/",
   "listing": {
     "summary": {
       "en": "Responsive weather tile with forecasts for multiple configurable cities.",
