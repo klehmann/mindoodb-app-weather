@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "mindoodb-app-sdk": "0.0.66",
-    "mindoodb-view-language": "0.0.14",
+    "mindoodb-view-language": "0.0.18",
     "swiper": "^12.1.2",
     "vue": "^3.5.31",
     "vue-i18n": "^11.1.0",
