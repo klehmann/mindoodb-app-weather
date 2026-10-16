@@ -6,7 +6,7 @@
   "description": "Responsive weather tile with forecasts for multiple configurable cities.",
   "version": "1.0.0",
   "runtime": "iframe",
-  "hosting": "external",
+  "hosting": "hosted",
   "launchParameters": {
     "locations": "New York City;Berlin;Singapur",
     "units": "metric",
