@@ -168,3 +168,23 @@ describe("geocoding language", () => {
     );
   });
 });
+
+describe("haven-app.json", () => {
+  /** The texts below every "fr" key: the localized store listing Haven shows. */
+  function french(value: unknown, path = "", out: [string, string][] = []): [string, string][] {
+    if (value && typeof value === "object") {
+      for (const [key, child] of Object.entries(value)) {
+        if (key === "fr" && typeof child === "string") out.push([`${path}.fr`, child]);
+        else french(child, `${path}.${key}`, out);
+      }
+    }
+    return out;
+  }
+
+  it("French puts a non-breaking space before : ; ? ! and inside « »", () => {
+    const bad = french(JSON.parse(readFileSync(resolve(process.cwd(), "public/haven-app.json"), "utf8")))
+      .filter(([, text]) => / [:;?!»]|« /.test(text))
+      .map(([path]) => path);
+    expect(bad).toEqual([]);
+  });
+});
