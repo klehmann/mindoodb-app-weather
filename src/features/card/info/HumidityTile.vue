@@ -14,12 +14,13 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import InfoTile from "@/features/card/info/InfoTile.vue";
 import { formatPercent } from "@/domain/formatting";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   humidity: number;
 }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
-const valueLabel = computed(() => formatPercent(props.humidity));
+const valueLabel = computed(() => formatPercent(props.humidity, toBcp47(locale.value as AppLocale)));
 </script>

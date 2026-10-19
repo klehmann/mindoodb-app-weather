@@ -14,13 +14,15 @@ import { useI18n } from "vue-i18n";
 
 import type { DailyPoint, HourlyPoint } from "@/domain/types";
 import { visualStateForCode } from "@/domain/weatherCode";
+import { formatClockTime } from "@/domain/time";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   today: DailyPoint | null;
   upcomingHours: HourlyPoint[];
 }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const summary = computed(() => {
   if (!props.today) {
@@ -30,8 +32,8 @@ const summary = computed(() => {
     (hour) => visualStateForCode(hour.weatherCode) === "rain",
   );
   if (rainHour) {
-    const when = rainHour.time.slice(11, 16);
-    return t("condition.rain") + " " + when;
+    const time = formatClockTime(rainHour.time, toBcp47(locale.value as AppLocale));
+    return t("condition.rainAt", { time });
   }
   return t(`condition.state.${visualStateForCode(props.today.weatherCode)}`);
 });

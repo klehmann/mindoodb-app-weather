@@ -1,17 +1,18 @@
 /**
- * Deutsche UI-Texte für die Wetter-App.
- *
- * Schlüssel sind identisch mit `en.ts`, damit ein einfacher Fallback auf
- * Englisch möglich bleibt, falls ein Eintrag fehlen sollte.
+ * Deutsche UI-Texte für die Wetter-App. Gleiche Schlüssel wie `en.ts`
+ * (über `satisfies Messages` geprüft).
  */
+import type { Messages } from "./en";
+
 export default {
   app: {
     title: "Wetter",
     emptyConfiguration: "Keine Orte konfiguriert",
     emptyConfigurationHint:
-      "Bitte den App-Parameter „locations“ in Haven setzen, z. B. „Berlin, Deutschland;Karlsruhe, Deutschland“.",
+      "Setze den Startparameter „locations“ der App in Haven, z. B. „Berlin, Deutschland;Karlsruhe, Deutschland“.",
     reconnect: "Neu verbinden",
     offline: "Zwischengespeicherte Daten",
+    notConnected: "Nicht mit Haven verbunden.",
     update: {
       title: "Neue Version verfügbar",
       body: "Lade Wetter neu, um die aktuelle Version und Offline-Dateien zu verwenden.",
@@ -23,7 +24,9 @@ export default {
   loading: "Wetter wird geladen",
   error: {
     geocode: "„{query}“ konnte nicht gefunden werden",
-    geocodeHint: "Bitte das Land angeben, z. B. „Berlin, Deutschland“.",
+    geocodeHint: "Gib das Land mit an, z. B. „Berlin, Deutschland“.",
+    network: "Keine Verbindung zum Wetterdienst.",
+    http: "Der Wetterdienst hat mit einem Fehler geantwortet (HTTP {status}).",
     forecast: "Wetter für {name} konnte nicht geladen werden",
     retry: "Erneut versuchen",
   },
@@ -41,6 +44,7 @@ export default {
     sun: "Sonnenauf- & -untergang",
     sunrise: "Sonnenaufgang",
     sunset: "Sonnenuntergang",
+    sunsetAt: "Sonnenuntergang: {time}",
     airQuality: "Luftqualität",
     airQualityScaleEuropean: "Europäischer AQI",
     airQualityScaleUs: "US-AQI",
@@ -74,6 +78,7 @@ export default {
     snowShowers: "Schneeschauer",
     thunderstorm: "Gewitter",
     thunderstormHail: "Gewitter mit Hagel",
+    rainAt: "Regen um {time}",
     state: {
       clear: "Klar",
       "partly-cloudy": "Teilweise bewölkt",
@@ -126,4 +131,4 @@ export default {
       steady: "Gleichbleibend",
     },
   },
-};
+} satisfies Messages;

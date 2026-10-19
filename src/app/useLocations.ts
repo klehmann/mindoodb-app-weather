@@ -13,14 +13,24 @@
  *
  * @module app/useLocations
  */
+import type { AppLocale } from "@/i18n";
 import { ref, watch, type Ref } from "vue";
-import { resolveLocation } from "@/services/geocoding";
+import { GeocodingError, resolveLocation, type GeocodingErrorKind } from "@/services/geocoding";
 import type { ResolvedLocation } from "@/domain/types";
 
 export type LocationState =
   | { query: string; status: "pending" }
   | { query: string; status: "resolved"; location: ResolvedLocation }
-  | { query: string; status: "error"; error: string };
+  | {
+      query: string;
+      status: "error";
+      /** Technical message (English), for logs. */
+      error: string;
+      /** What went wrong; the UI turns this into a localized text. */
+      errorKind: GeocodingErrorKind;
+      /** HTTP status when `errorKind` is `"http"`. */
+      errorStatus?: number;
+    };
 
 export interface UseLocationsState {
   entries: Ref<LocationState[]>;
@@ -34,7 +44,7 @@ export interface UseLocationsState {
  * @param locale  Reactive i18n locale used to ask the geocoder for
  *                localized place names.
  */
-export function useLocations(queries: Ref<string[]>, locale: Ref<"de" | "en">): UseLocationsState {
+export function useLocations(queries: Ref<string[]>, locale: Ref<AppLocale>): UseLocationsState {
   const entries = ref<LocationState[]>([]);
 
   async function resolveOne(query: string): Promise<LocationState> {
@@ -46,6 +56,8 @@ export function useLocations(queries: Ref<string[]>, locale: Ref<"de" | "en">): 
         query,
         status: "error",
         error: error instanceof Error ? error.message : "Geocoding failed",
+        errorKind: error instanceof GeocodingError ? error.kind : "notFound",
+        errorStatus: error instanceof GeocodingError ? error.status : undefined,
       };
     }
   }

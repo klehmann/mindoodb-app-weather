@@ -31,7 +31,7 @@ viewport events, and responsive embedding.
 
 | Name | Required | Default | Format & meaning |
 |---|---|---|---|
-| `locations` | no | `"New York City;Berlin;Singapur"` | Semicolon-separated list of free-form queries: `"Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA"`. Entries are trimmed and de-duplicated. When omitted or empty, the app falls back to that three-city default so the tile is immediately useful with zero configuration. Note: Open-Meteo's geocoder expects country names in their native language (e.g. `Deutschland`, not `Germany`; `USA` or `United States`). |
+| `locations` | no | `"New York City;Berlin;Singapore"` | Semicolon-separated list of free-form queries: `"Berlin, Deutschland;Karlsruhe, Deutschland;Washington, USA"`. Entries are trimmed and de-duplicated. When omitted or empty, the app falls back to that three-city default so the tile is immediately useful with zero configuration. Note: Open-Meteo's geocoder expects country names in their native language (e.g. `Deutschland`, not `Germany`; `USA` or `United States`). |
 | `units` | no | `metric` | `metric` → °C / km/h / mm / hPa / km. `imperial` → °F / mph / in / inHg / miles. |
 | `refreshIntervalMinutes` | no | `0` | Integer minutes between automatic refreshes. `0` disables background refresh. Maximum `1440`. |
 
@@ -46,7 +46,7 @@ Unknown keys are ignored.
 3. Optionally override `locations` (semicolon-separated) and any of
    the other parameters in the tile's app parameters — with no
    parameters at all the tile will show forecasts for New York City,
-   Berlin, and Singapur out of the box.
+   Berlin, and Singapore out of the box.
 4. Reload the tile; the first location card appears as soon as the
    geocoder returns, then the full forecast is fetched in the
    background.
@@ -131,15 +131,18 @@ src/
 │   └── background/               # Full-bleed crossfading bg
 ├── services/                     # geocoding.ts, openMeteo.ts, airQuality.ts, cache.ts, launchParams.ts
 ├── domain/                       # WMO mapping, formatters, time helpers, UV/AQI/wind/pressure bands
-├── i18n/                         # vue-i18n setup + en/de bundles
+├── i18n/                         # vue-i18n setup + en/de/es/fr/it/nb/nl/pl bundles
 ├── shared/                       # GlassCard, WeatherIcon, LoadingDots, styles
 └── tests/                        # Vitest unit tests
 ```
 
 ## Extending the app
 
-- **More languages**: drop a new file next to `src/i18n/en.ts` and
-  add it to `src/i18n/index.ts`.
+- **Languages**: the UI ships in en, de, es, fr, it, nb, nl, pl and follows
+  Haven's UI language. New texts go into `src/i18n/en.ts` *and* every other
+  locale file; each file is checked with `satisfies Messages`, and
+  `src/tests/i18n.test.ts` compares keys and `{placeholders}`. Place names
+  come localized from Open-Meteo's geocoder (`language=`; Norwegian is `no`).
 - **More visual states**: bump the mapping in
   `src/domain/weatherCode.ts` and add new background images under
   `public/backgrounds/` using the naming convention `<state>-<day|night>.jpg`.

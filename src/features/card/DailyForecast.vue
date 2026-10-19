@@ -16,7 +16,7 @@
         :class="{ 'daily__row--today': row.isToday }"
       >
         <span class="daily__label">{{ row.label }}</span>
-        <WeatherIcon class="daily__icon" :condition="row.condition" />
+        <WeatherIcon class="daily__icon" :condition="row.condition" :label="row.conditionLabel" />
         <span class="daily__min">{{ row.minLabel }}</span>
         <TemperatureBar
           class="daily__bar"
@@ -41,10 +41,10 @@ import type { Units } from "@/services/launchParams";
 import type { VisualCondition } from "@/domain/types";
 import TemperatureBar from "@/features/card/TemperatureBar.vue";
 import WeatherIcon from "@/shared/components/WeatherIcon.vue";
-import { resolveDayOrNight, toVisualCondition } from "@/domain/weatherCode";
+import { conditionI18nKey, resolveDayOrNight, toVisualCondition } from "@/domain/weatherCode";
 import { formatWeekdayShort } from "@/domain/time";
 import { formatTemperature } from "@/domain/formatting";
-import { toBcp47 } from "@/i18n";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   daily: DailyPoint[];
@@ -63,7 +63,7 @@ const globalMax = computed(() =>
 );
 
 const rows = computed(() => {
-  const tz = toBcp47(locale.value as "de" | "en");
+  const tz = toBcp47(locale.value as AppLocale);
   const todayDate = props.todayIso.slice(0, 10);
   return props.daily.map((day) => {
     const isToday = day.date === todayDate;
@@ -74,6 +74,7 @@ const rows = computed(() => {
       day,
       isToday,
       condition,
+      conditionLabel: t(conditionI18nKey(day.weatherCode)),
       label,
       minLabel: formatTemperature(day.tempMin, props.units),
       maxLabel: formatTemperature(day.tempMax, props.units),

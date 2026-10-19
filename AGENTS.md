@@ -20,10 +20,9 @@ change that adds it: labels, buttons, placeholders, empty states, errors,
   form of address: German *du*, Spanish *tú*, French *vous*, Italian *tu*,
   Norwegian *du*, Dutch *je*, Polish informal.
 
-**In this repo:** strings are in `src/i18n/en.ts` and `src/i18n/de.ts`;
-`src/i18n/index.ts` picks the locale. Listing texts in `public/haven-app.json` are in
-all eight languages.
-
-**Known gap:** the UI is English + German only (`AppLocale = "de" | "en"`, everything
-non-German falls back to English, and `de.ts` is not typed against `en.ts`). Add es,
-fr, it, nb, nl, pl with `satisfies Record<AppLocale, Messages>` before adding new texts.
+**In this repo:** strings are in `src/i18n/<locale>.ts` (en, de, es, fr, it, nb, nl, pl),
+each `satisfies Messages` (derived from `en.ts`); `src/i18n/index.ts` maps Haven's UI locale
+(launch context + `onLocaleChange`, else `navigator.language`) and `src/tests/i18n.test.ts`
+checks keys and `{placeholders}`. Place names come from the Open-Meteo geocoder in the UI
+language. The boot-failure text inline in `index.html` has its own eight-language table.
+Listing texts in `public/haven-app.json` are in all eight languages.

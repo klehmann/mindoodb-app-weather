@@ -12,6 +12,7 @@
  *
  * @module app/useForecast
  */
+import type { AppLocale } from "@/i18n";
 import { computed, ref, watch, type Ref } from "vue";
 import { fetchForecast, readCachedForecast } from "@/services/openMeteo";
 import type { LocationForecast, ResolvedLocation } from "@/domain/types";
@@ -30,7 +31,7 @@ export interface UseForecastState {
 export function useForecast(
   location: Ref<ResolvedLocation | null>,
   units: Ref<Units>,
-  locale: Ref<"de" | "en">,
+  locale: Ref<AppLocale>,
 ): UseForecastState {
   const forecast = ref<LocationForecast | null>(null);
   const loading = ref(false);

@@ -17,9 +17,9 @@
         :class="{ 'hourly__item--now': index === 0 }"
       >
         <span class="hourly__label">{{ entry.label }}</span>
-        <WeatherIcon class="hourly__icon" :condition="entry.condition" />
+        <WeatherIcon class="hourly__icon" :condition="entry.condition" :label="entry.conditionLabel" />
         <span v-if="entry.precipProb && entry.precipProb > 20" class="hourly__precip">
-          {{ entry.precipProb }}%
+          {{ formatPercent(entry.precipProb, tz) }}
         </span>
         <span class="hourly__temp">{{ entry.temp }}</span>
       </li>
@@ -35,10 +35,10 @@ import type { DailyPoint, HourlyPoint } from "@/domain/types";
 import type { Units } from "@/services/launchParams";
 import type { VisualCondition } from "@/domain/types";
 import WeatherIcon from "@/shared/components/WeatherIcon.vue";
-import { resolveDayOrNight, toVisualCondition } from "@/domain/weatherCode";
+import { conditionI18nKey, resolveDayOrNight, toVisualCondition } from "@/domain/weatherCode";
 import { formatHourLabel } from "@/domain/time";
-import { formatTemperature } from "@/domain/formatting";
-import { toBcp47 } from "@/i18n";
+import { formatPercent, formatTemperature } from "@/domain/formatting";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   hourly: HourlyPoint[];
@@ -49,9 +49,10 @@ const props = defineProps<{
 
 const { t, locale } = useI18n();
 
+const tz = computed(() => toBcp47(locale.value as AppLocale));
+
 const entries = computed(() => {
   const now = props.nowIso;
-  const tz = toBcp47(locale.value as "de" | "en");
 
   const futureIndex = props.hourly.findIndex((hour) => hour.time >= now);
   const start = futureIndex === -1 ? 0 : futureIndex;
@@ -65,11 +66,12 @@ const entries = computed(() => {
       sunsetIso: day?.sunset,
     });
     const condition: VisualCondition = toVisualCondition(hour.weatherCode, period);
-    const label = index === 0 ? t("hourly.now") : formatHourLabel(hour.time, tz);
+    const label = index === 0 ? t("hourly.now") : formatHourLabel(hour.time, tz.value);
     return {
       time: hour.time,
       label,
       condition,
+      conditionLabel: t(conditionI18nKey(hour.weatherCode)),
       precipProb: hour.precipitationProbability,
       temp: formatTemperature(hour.temperature, props.units),
     };

@@ -16,13 +16,14 @@ import { useI18n } from "vue-i18n";
 import InfoTile from "@/features/card/info/InfoTile.vue";
 import type { Units } from "@/services/launchParams";
 import { formatVisibility } from "@/domain/formatting";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   visibilityMetres: number;
   units: Units;
 }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
-const valueLabel = computed(() => formatVisibility(props.visibilityMetres, props.units));
+const valueLabel = computed(() => formatVisibility(props.visibilityMetres, props.units, toBcp47(locale.value as AppLocale)));
 </script>

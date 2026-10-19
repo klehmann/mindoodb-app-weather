@@ -32,38 +32,52 @@ export function formatWindSpeed(value: number, units: Units): string {
 }
 
 /** Render precipitation amount in mm or inches. */
-export function formatPrecipitation(value: number, units: Units): string {
+export function formatPrecipitation(value: number, units: Units, locale = "en-US"): string {
   if (units === "imperial") {
-    return `${value.toFixed(2)} in`;
+    return `${formatDecimal(value, 2, locale)} in`;
   }
-  return `${value.toFixed(1)} mm`;
+  return `${formatDecimal(value, 1, locale)} mm`;
 }
 
-/** Render a percentage value (e.g. humidity, precipitation probability). */
-export function formatPercent(value: number): string {
-  return `${Math.round(value)}%`;
+/** Format a number with fixed decimals in the given BCP-47 locale. */
+function formatDecimal(value: number, decimals: number, locale: string): string {
+  return new Intl.NumberFormat(locale, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+    useGrouping: false,
+  }).format(value);
+}
+
+/**
+ * Render a percentage value (e.g. humidity, precipitation probability)
+ * the way the locale writes it ("45%", "45 %", "%45" …).
+ */
+export function formatPercent(value: number, locale = "en-US"): string {
+  return new Intl.NumberFormat(locale, { style: "percent", maximumFractionDigits: 0 }).format(
+    Math.round(value) / 100,
+  );
 }
 
 /** Render pressure in hPa (metric) or inHg (imperial, converted from hPa). */
-export function formatPressure(hpa: number, units: Units): string {
+export function formatPressure(hpa: number, units: Units, locale = "en-US"): string {
   if (units === "imperial") {
     const inHg = hpa * 0.02953;
-    return `${inHg.toFixed(2)} inHg`;
+    return `${formatDecimal(inHg, 2, locale)} inHg`;
   }
-  return `${Math.round(hpa)} hPa`;
+  return `${formatDecimal(Math.round(hpa), 0, locale)} hPa`;
 }
 
 /**
  * Render visibility. The API returns metres; we convert to km (metric) or
  * miles (imperial) and round to one decimal.
  */
-export function formatVisibility(metres: number, units: Units): string {
+export function formatVisibility(metres: number, units: Units, locale = "en-US"): string {
   if (units === "imperial") {
     const miles = metres / 1609.344;
-    return `${miles.toFixed(1)} mi`;
+    return `${formatDecimal(miles, 1, locale)} mi`;
   }
   const km = metres / 1000;
-  return `${km.toFixed(1)} km`;
+  return `${formatDecimal(km, 1, locale)} km`;
 }
 
 /** Format a difference like `+2°` or `-3°`. */

@@ -8,6 +8,7 @@
  *
  * @module app/useAirQuality
  */
+import type { AppLocale } from "@/i18n";
 import { ref, watch, type Ref } from "vue";
 import { fetchAirQuality, readCachedAirQuality } from "@/services/airQuality";
 import type { AirQualitySnapshot, ResolvedLocation } from "@/domain/types";
@@ -20,7 +21,7 @@ export interface UseAirQualityState {
 
 export function useAirQuality(
   location: Ref<ResolvedLocation | null>,
-  locale: Ref<"de" | "en">,
+  locale: Ref<AppLocale>,
 ): UseAirQualityState {
   const snapshot = ref<AirQualitySnapshot | null>(null);
   const loading = ref(false);

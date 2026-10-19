@@ -12,6 +12,7 @@
  *
  * @module services/openMeteo
  */
+import type { AppLocale } from "@/i18n";
 import { cacheGet, cacheSet, formatCoordinateKey } from "@/services/cache";
 import type {
   CurrentConditions,
@@ -113,7 +114,7 @@ function unitParams(units: Units): {
   };
 }
 
-function buildForecastUrl(location: ResolvedLocation, units: Units, locale: "de" | "en"): URL {
+function buildForecastUrl(location: ResolvedLocation, units: Units, locale: AppLocale): URL {
   const { temperatureUnit, windSpeedUnit, precipitationUnit } = unitParams(units);
 
   const url = new URL(FORECAST_ENDPOINT);
@@ -182,7 +183,7 @@ function decodeDaily(raw: RawDaily): DailyPoint[] {
   return out;
 }
 
-function cacheId(location: ResolvedLocation, units: Units, locale: "de" | "en"): string {
+function cacheId(location: ResolvedLocation, units: Units, locale: AppLocale): string {
   return `${formatCoordinateKey(location.latitude, location.longitude)}_${units}_${locale}`;
 }
 
@@ -194,7 +195,7 @@ function cacheId(location: ResolvedLocation, units: Units, locale: "de" | "en"):
 export function readCachedForecast(
   location: ResolvedLocation,
   units: Units,
-  locale: "de" | "en",
+  locale: AppLocale,
 ): LocationForecast | null {
   const entry = cacheGet<LocationForecast>(FORECAST_CACHE_SCOPE, FORECAST_CACHE_VERSION, cacheId(location, units, locale));
   return entry?.data ?? null;
@@ -208,7 +209,7 @@ export function readCachedForecast(
 export async function fetchForecast(
   location: ResolvedLocation,
   units: Units,
-  locale: "de" | "en",
+  locale: AppLocale,
   fetchImpl: typeof fetch = fetch,
 ): Promise<LocationForecast> {
   const url = buildForecastUrl(location, units, locale);

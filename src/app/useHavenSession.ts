@@ -1,7 +1,7 @@
 /**
  * Thin composable that owns the MindooDB Haven bridge lifecycle and exposes
  * the subset of launch context the weather app actually consumes: launch
- * parameters and the live viewport.
+ * parameters, the UI locale and the live viewport.
  *
  * This app deliberately has a single visual treatment (iOS Weather parity),
  * so `ctx.theme` and `onThemeChange` are intentionally ignored by the UI.
@@ -49,6 +49,8 @@ export interface HavenSessionState {
    * hide Haven-specific affordances.
    */
   isHosted: ReturnType<typeof ref<boolean>>;
+  /** Haven's UI language (BCP-47), or `null` when running standalone. */
+  hostLocale: ReturnType<typeof ref<string | null>>;
   /** Launch parameters from Haven (raw strings, key -> value). */
   launchParameters: ReturnType<typeof ref<Record<string, string>>>;
   /** Establish the bridge, read launch context, subscribe to viewport events. */
@@ -75,8 +77,10 @@ export function useHavenSession(options: UseHavenSessionOptions = {}): HavenSess
   const connectError = ref<string | null>(null);
   const isHosted = ref(false);
   const launchParameters = ref<Record<string, string>>({});
+  const hostLocale = ref<string | null>(null);
 
   let unsubscribeViewport: (() => void) | null = null;
+  let unsubscribeLocale: (() => void) | null = null;
   let browserResizeListener: (() => void) | null = null;
 
   function attachBrowserResizeFallback() {
@@ -110,11 +114,15 @@ export function useHavenSession(options: UseHavenSessionOptions = {}): HavenSess
       launchContext.value = ctx;
       launchParameters.value = ctx.launchParameters ?? {};
       viewport.value = ctx.viewport ?? readBrowserViewport();
+      hostLocale.value = ctx.locale || null;
       isHosted.value = true;
 
       // NB: intentionally ignoring ctx.theme / onThemeChange. See module docs.
       unsubscribeViewport = nextSession.onViewportChange((next) => {
         viewport.value = next;
+      });
+      unsubscribeLocale = nextSession.onLocaleChange((next) => {
+        hostLocale.value = next || null;
       });
 
       detachBrowserResizeFallback();
@@ -133,6 +141,8 @@ export function useHavenSession(options: UseHavenSessionOptions = {}): HavenSess
   async function disconnect() {
     unsubscribeViewport?.();
     unsubscribeViewport = null;
+    unsubscribeLocale?.();
+    unsubscribeLocale = null;
     detachBrowserResizeFallback();
 
     const current = session.value;
@@ -158,6 +168,7 @@ export function useHavenSession(options: UseHavenSessionOptions = {}): HavenSess
     connecting,
     connectError,
     isHosted,
+    hostLocale,
     launchParameters,
     connect,
     disconnect,
