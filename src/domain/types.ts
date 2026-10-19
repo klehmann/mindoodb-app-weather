@@ -97,7 +97,7 @@ export interface LocationForecast {
 
 /**
  * Air-quality snapshot. The `index` is whichever scale is used in the
- * current locale (European AQI for `de`, US AQI otherwise); `scale`
+ * current locale (US AQI for `en`, European AQI otherwise); `scale`
  * records the choice so the UI can label it correctly.
  */
 export interface AirQualitySnapshot {

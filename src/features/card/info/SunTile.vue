@@ -13,7 +13,7 @@
       <span>{{ sunriseLabel }}</span>
     </div>
     <template #footer>
-      <span>{{ t("current.sunset") }}: {{ sunsetLabel }}</span>
+      <span>{{ t("current.sunsetAt", { time: sunsetLabel }) }}</span>
     </template>
   </InfoTile>
 </template>
@@ -23,7 +23,7 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import InfoTile from "@/features/card/info/InfoTile.vue";
 import { formatClockTime } from "@/domain/time";
-import { toBcp47 } from "@/i18n";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   sunriseIso: string;
@@ -32,7 +32,7 @@ const props = defineProps<{
 
 const { t, locale } = useI18n();
 
-const tz = computed(() => toBcp47(locale.value as "de" | "en"));
+const tz = computed(() => toBcp47(locale.value as AppLocale));
 const sunriseLabel = computed(() => formatClockTime(props.sunriseIso, tz.value));
 const sunsetLabel = computed(() => formatClockTime(props.sunsetIso, tz.value));
 </script>

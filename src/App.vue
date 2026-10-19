@@ -41,7 +41,7 @@
         <section class="app__empty glass-card glass-card--strong">
           <h1 class="app__empty-title">{{ t("app.emptyConfiguration") }}</h1>
           <p class="app__empty-hint">{{ t("app.emptyConfigurationHint") }}</p>
-          <p v-if="connectError" class="app__empty-error">{{ connectError }}</p>
+          <p v-if="connectError" class="app__empty-error" :title="connectError">{{ t("app.notConnected") }}</p>
         </section>
       </template>
 
@@ -60,7 +60,7 @@
           <ErrorCard
             v-else-if="tile.kind === 'error'"
             :query="tile.query"
-            :detail="tile.error"
+            :detail="errorDetail(tile.errorKind, tile.errorStatus)"
           />
           <article v-else class="app__loading-card glass-card">
             <h2>{{ tile.query }}</h2>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 import type { VisualCondition } from "@/domain/types";
@@ -85,22 +85,55 @@ import ErrorCard from "@/features/error/ErrorCard.vue";
 import WeatherBackground from "@/features/background/WeatherBackground.vue";
 import LoadingDots from "@/shared/components/LoadingDots.vue";
 import { useWeatherAppUpdate } from "@/pwa/appUpdate";
+import { detectLocale, isAppLocale, type AppLocale } from "@/i18n";
+import type { GeocodingErrorKind } from "@/services/geocoding";
 
 const { t, locale } = useI18n();
 const { updateAvailable, updateReloading, reloadForUpdate, dismissUpdate } = useWeatherAppUpdate();
 
-// Cast: vue-i18n's locale ref is `WritableComputedRef<string>`; our
-// composables narrow to `"de" | "en"` based on detection logic.
-const appLocale = computed({
-  get: () => (locale.value === "de" ? ("de" as const) : ("en" as const)),
-  set: (value: "de" | "en") => {
+// vue-i18n's locale ref is `WritableComputedRef<string>`; our composables
+// take the narrowed `AppLocale`.
+const appLocale = computed<AppLocale>({
+  get: () => (isAppLocale(locale.value) ? locale.value : "en"),
+  set: (value) => {
     locale.value = value;
   },
 });
 
 const app = useWeatherApp(appLocale);
 const { tiles, units, session, start } = app;
-const { viewport, connectError } = session;
+const { viewport, connectError, hostLocale } = session;
+
+// Follow Haven's UI language (launch context + live `onLocaleChange`).
+watch(
+  hostLocale,
+  (tag) => {
+    if (tag) {
+      appLocale.value = detectLocale({ explicit: tag });
+    }
+  },
+  { immediate: true },
+);
+
+watch(
+  appLocale,
+  (value) => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = value;
+    }
+  },
+  { immediate: true },
+);
+
+function errorDetail(kind: GeocodingErrorKind, status?: number): string {
+  if (kind === "network") {
+    return t("error.network");
+  }
+  if (kind === "http") {
+    return t("error.http", { status: status ?? "?" });
+  }
+  return "";
+}
 
 const activeIndex = ref(0);
 

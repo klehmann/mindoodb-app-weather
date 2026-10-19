@@ -16,6 +16,7 @@
  *
  * @module app/useWeatherApp
  */
+import type { AppLocale } from "@/i18n";
 import { computed, reactive, ref, watch, type Ref } from "vue";
 
 import type { AirQualitySnapshot, LocationForecast, ResolvedLocation } from "@/domain/types";
@@ -25,11 +26,12 @@ import { fetchForecast, readCachedForecast } from "@/services/openMeteo";
 import { useHavenSession } from "@/app/useHavenSession";
 import { useLocations } from "@/app/useLocations";
 import { useAutoRefresh } from "@/app/useAutoRefresh";
+import type { GeocodingErrorKind } from "@/services/geocoding";
 
 /** Per-location tile view model consumed by the UI. */
 export type LocationTile =
   | { kind: "loading"; query: string }
-  | { kind: "error"; query: string; error: string }
+  | { kind: "error"; query: string; error: string; errorKind: GeocodingErrorKind; errorStatus?: number }
   | {
       kind: "ready";
       query: string;
@@ -48,7 +50,7 @@ interface WeatherBag {
 }
 
 export interface UseWeatherAppState {
-  locale: Ref<"de" | "en">;
+  locale: Ref<AppLocale>;
   units: Ref<Units>;
   refreshIntervalMinutes: Ref<number>;
   tiles: Ref<LocationTile[]>;
@@ -62,7 +64,7 @@ export interface UseWeatherAppState {
   activeIndex: Ref<number>;
 }
 
-export function useWeatherApp(locale: Ref<"de" | "en">): UseWeatherAppState {
+export function useWeatherApp(locale: Ref<AppLocale>): UseWeatherAppState {
   const session = useHavenSession();
 
   const units = ref<Units>("metric");
@@ -183,7 +185,13 @@ export function useWeatherApp(locale: Ref<"de" | "en">): UseWeatherAppState {
         return { kind: "loading", query: entry.query };
       }
       if (entry.status === "error") {
-        return { kind: "error", query: entry.query, error: entry.error };
+        return {
+          kind: "error",
+          query: entry.query,
+          error: entry.error,
+          errorKind: entry.errorKind,
+          errorStatus: entry.errorStatus,
+        };
       }
       const bag = bags[entry.query];
       return {

@@ -8,11 +8,12 @@
  * callers are expected to catch and gracefully hide the corresponding
  * UI tile when this call rejects.
  *
- * The app uses `european_aqi` for the German locale and `us_aqi`
- * otherwise -- matching the convention a native user would expect.
+ * The app uses `us_aqi` for English and `european_aqi` for every other
+ * (European) locale -- matching the convention a native user would expect.
  *
  * @module services/airQuality
  */
+import type { AppLocale } from "@/i18n";
 import { cacheGet, cacheSet, formatCoordinateKey } from "@/services/cache";
 import type { AirQualitySnapshot, ResolvedLocation } from "@/domain/types";
 
@@ -47,18 +48,18 @@ interface RawAirQualityResponse {
   current: RawAirQualityCurrent;
 }
 
-function chooseScale(locale: "de" | "en"): "european" | "us" {
-  return locale === "de" ? "european" : "us";
+function chooseScale(locale: AppLocale): "european" | "us" {
+  return locale === "en" ? "us" : "european";
 }
 
-function cacheId(location: ResolvedLocation, locale: "de" | "en"): string {
+function cacheId(location: ResolvedLocation, locale: AppLocale): string {
   return `${formatCoordinateKey(location.latitude, location.longitude)}_${locale}`;
 }
 
 /** Synchronous cache read, for instant first render while fetching. */
 export function readCachedAirQuality(
   location: ResolvedLocation,
-  locale: "de" | "en",
+  locale: AppLocale,
 ): AirQualitySnapshot | null {
   const entry = cacheGet<AirQualitySnapshot>(
     AIR_QUALITY_CACHE_SCOPE,
@@ -75,7 +76,7 @@ export function readCachedAirQuality(
  */
 export async function fetchAirQuality(
   location: ResolvedLocation,
-  locale: "de" | "en",
+  locale: AppLocale,
   fetchImpl: typeof fetch = fetch,
 ): Promise<AirQualitySnapshot> {
   const scale = chooseScale(locale);

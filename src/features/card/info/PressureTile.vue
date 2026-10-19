@@ -23,6 +23,7 @@ import InfoTile from "@/features/card/info/InfoTile.vue";
 import type { Units } from "@/services/launchParams";
 import { formatPressure } from "@/domain/formatting";
 import { computePressureTrend } from "@/domain/pressureTrend";
+import { toBcp47, type AppLocale } from "@/i18n";
 
 const props = defineProps<{
   pressureHpa: number;
@@ -30,9 +31,9 @@ const props = defineProps<{
   units: Units;
 }>();
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
-const valueLabel = computed(() => formatPressure(props.pressureHpa, props.units));
+const valueLabel = computed(() => formatPressure(props.pressureHpa, props.units, toBcp47(locale.value as AppLocale)));
 
 const trendInfo = computed(() => computePressureTrend(props.hourlyPressureSamples));
 const trend = computed(() => trendInfo.value.trend);

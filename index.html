@@ -55,6 +55,24 @@
           window.name = (window.name || "").replace(/mindoodb-shell-recovery=\d+/, "") + ATTEMPT_KEY + "=" + now;
         }
 
+        // Shown when repair did not help. One text per Haven language
+        // (en, de, es, fr, it, nb, nl, pl; checked by src/tests/i18n.test.ts),
+        // picked by the primary subtag of the browser language.
+        var BOOT_FAILED = {
+          en: "MindooDB Weather could not load its program files. Please close the app and open it again.",
+          de: "MindooDB Weather konnte seine Programmdateien nicht laden. Schließe die App und öffne sie erneut.",
+          es: "MindooDB Weather no pudo cargar sus archivos de programa. Cierra la app y vuelve a abrirla.",
+          fr: "MindooDB Weather n’a pas pu charger ses fichiers programme. Fermez l’app et rouvrez-la.",
+          it: "MindooDB Weather non è riuscita a caricare i file del programma. Chiudi l’app e riaprila.",
+          nb: "MindooDB Weather kunne ikke laste inn programfilene sine. Lukk appen og åpne den igjen.",
+          nl: "MindooDB Weather kon de programmabestanden niet laden. Sluit de app en open hem opnieuw.",
+          pl: "MindooDB Weather nie może wczytać plików programu. Zamknij aplikację i otwórz ją ponownie."
+        };
+        function bootFailedMessage() {
+          var primary = String(navigator.language || "en").toLowerCase().split(/[-_]/)[0];
+          if (primary === "no" || primary === "nn") primary = "nb";
+          return BOOT_FAILED[primary] || BOOT_FAILED.en;
+        }
         // Ignore per-job failures so one missing API cannot block the reload.
         function settled(job) {
           return Promise.resolve(job).catch(function () {});
@@ -108,7 +126,7 @@
           if (Date.now() - lastAttempt() < COOLDOWN_MS) {
             var root = document.getElementById("app");
             if (root && !root.firstChild) {
-              root.textContent = "MindooDB Weather could not load its program files. Please close the app and open it again.";
+              root.textContent = bootFailedMessage();
             }
             return;
           }

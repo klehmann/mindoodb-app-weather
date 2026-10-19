@@ -4,7 +4,7 @@
  * Keys are structured as `<section>.<key>` to keep lookup calls readable
  * and to allow grouped overrides in other locales.
  */
-export default {
+const en = {
   app: {
     title: "Weather",
     emptyConfiguration: "No locations configured",
@@ -12,6 +12,7 @@ export default {
       "Set the app’s “locations” launch parameter in Haven, e.g. “Berlin, Germany;Karlsruhe, Germany”.",
     reconnect: "Reconnect",
     offline: "Showing cached data",
+    notConnected: "Not connected to Haven.",
     update: {
       title: "New version available",
       body: "Reload Weather to switch to the latest version and refresh offline assets.",
@@ -24,6 +25,8 @@ export default {
   error: {
     geocode: "Couldn’t find “{query}”",
     geocodeHint: "Try including the country, e.g. “Springfield, USA”.",
+    network: "No connection to the weather service.",
+    http: "The weather service answered with an error (HTTP {status}).",
     forecast: "Couldn’t load the forecast for {name}",
     retry: "Retry",
   },
@@ -41,6 +44,7 @@ export default {
     sun: "Sunrise & Sunset",
     sunrise: "Sunrise",
     sunset: "Sunset",
+    sunsetAt: "Sunset: {time}",
     airQuality: "Air Quality",
     airQualityScaleEuropean: "European AQI",
     airQualityScaleUs: "US AQI",
@@ -74,6 +78,7 @@ export default {
     snowShowers: "Snow showers",
     thunderstorm: "Thunderstorm",
     thunderstormHail: "Thunderstorm with hail",
+    rainAt: "Rain at {time}",
     state: {
       clear: "Clear",
       "partly-cloudy": "Partly cloudy",
@@ -127,3 +132,8 @@ export default {
     },
   },
 };
+
+/** The message shape every locale must match (derived from English). */
+export type Messages = typeof en;
+
+export default en;

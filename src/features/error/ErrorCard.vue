@@ -15,7 +15,7 @@
       </div>
       <h2 class="error-card__title">{{ t("error.geocode", { query }) }}</h2>
       <p class="error-card__hint">{{ t("error.geocodeHint") }}</p>
-      <p class="error-card__detail">{{ detail }}</p>
+      <p v-if="detail" class="error-card__detail">{{ detail }}</p>
     </div>
   </article>
 </template>
