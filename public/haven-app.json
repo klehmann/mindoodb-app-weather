@@ -7,6 +7,11 @@
   "version": "1.0.0",
   "runtime": "iframe",
   "hosting": "hosted",
+  "networkAllowlist": [
+    "https://api.open-meteo.com/*",
+    "https://geocoding-api.open-meteo.com/*",
+    "https://air-quality-api.open-meteo.com/*"
+  ],
   "launchParameters": {
     "locations": "New York City;Berlin;Singapore",
     "units": "metric",
