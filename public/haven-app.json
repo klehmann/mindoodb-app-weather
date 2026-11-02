@@ -19,6 +19,7 @@
   },
   "publicUrl": "https://app-weather.mindoodb.com/",
   "listing": {
+    "shareImage": "listing/share.png",
     "summary": {
       "en": "Responsive weather tile with forecasts for multiple configurable cities.",
       "de": "Responsive Wetterkachel mit Vorhersagen für mehrere konfigurierbare Städte.",
